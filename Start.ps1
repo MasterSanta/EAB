@@ -12,7 +12,7 @@ Clear-Host
 
 if (-not (IsAdministrator)) {
     Write-Host "The script requires " -NoNewline
-    Write-Host "Administrator " -ForegroundColor 'Yellow' -NoNewline  
+    Write-Host "Administrator " -ForegroundColor 'Yellow' -NoNewline
     Write-Host "privileges to work properly. Please restart it with elevated privileges."
     Write-Host "Exiting now!" -ForegroundColor 'Red'
     return

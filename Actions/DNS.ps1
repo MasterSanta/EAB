@@ -5,15 +5,6 @@ Write-Host "[ Configure DNS ... ]" -ForegroundColor 'Magenta'
 ################################################################################
 
 .$PSScriptRoot\..\Tools\UserPermissions.ps1
-
-################################################################################
-
-if (-not (IsAdministrator)) {
-    Write-Host "Not run as " -NoNewline
-    Write-Host "Administrator" -ForegroundColor 'Yellow' -NoNewline  
-    Write-Host ", skipping... `n"
-    return
-}
 .$PSScriptRoot\..\Tools\Information.ps1
 
 ################################################################################
