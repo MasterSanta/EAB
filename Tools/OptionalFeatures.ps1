@@ -21,7 +21,7 @@ function Disable-WinFeature([string]$featureName) {
     }
 
     try {
-        Disable-WindowsOptionalFeature -Online -FeatureName $featureName | Out-Null
+        Disable-WindowsOptionalFeature -Online -NoRestart -FeatureName $featureName | Out-Null
 		Show-ItsOK
 	} catch {
 		Show-ItsError

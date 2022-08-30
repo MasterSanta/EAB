@@ -10,6 +10,13 @@ Write-Host "[ Configure DNS ... ]" -ForegroundColor 'Magenta'
 ################################################################################
 
 $netAdapters = Get-NetAdapter | Select-Object 'Name'
+
+if ($null -eq $netAdapters) {
+    Write-Host "No network adapter was found " -NoNewline
+    Show-ItsSkip -AdditionalInfo "`n"
+    return
+}
+
 $currentNextHop = Get-NetRoute -DestinationPrefix "0.0.0.0/0" | Select-Object -ExpandProperty "NextHop" | Get-Unique
 
 $listDNSv4 = @(
