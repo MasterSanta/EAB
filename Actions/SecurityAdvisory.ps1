@@ -52,6 +52,13 @@ Disable-WindowsOptionalFeature -Online -FeatureName 'smb1protocol' | Out-Null
 Disable-WindowsOptionalFeature -Online -FeatureName 'MicrosoftWindowsPowerShellV2' | Out-Null
 Disable-WindowsOptionalFeature -Online -FeatureName 'MicrosoftWindowsPowerShellV2Root' | Out-Null
 
+# Disable WCF
+Disable-WindowsOptionalFeature -Online -FeatureName "WCF-Services45" | Out-Null
+Disable-WindowsOptionalFeature -Online -FeatureName "WCF-TCP-PortSharing45" | Out-Null
+
+# Disable Internet Explorer
+Disable-WindowsOptionalFeature -Online -FeatureName "Internet-Explorer-Optional-amd64" | Out-Null
+
 # Enable Windows Defender sandboxing
 Write-Host " - enable Windows Defender sandboxing " -NoNewline
 setx /M MP_FORCE_USE_SANDBOX 1 | Out-Null
