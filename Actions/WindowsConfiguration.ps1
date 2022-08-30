@@ -4,6 +4,7 @@ Write-Host "[ Configure Windows Settings ... ]" -ForegroundColor 'Magenta'
 
 ################################################################################
 
+.$PSScriptRoot\..\Tools\Information.ps1
 .$PSScriptRoot\..\Tools\Programs.ps1
 .$PSScriptRoot\..\Tools\Registry.ps1
 
@@ -97,6 +98,14 @@ Set-Registry "HKCU:\Software\Microsoft\Windows\DWM" "ColorPrevalence" DWORD 1
 # Hostspot 2.0 - disable
 Set-Registry "HKLM:\SOFTWARE\Microsoft\WlanSvc\AnqpCache" "OsuRegistrationStatus" "DWORD" 0
 
+# Remote Assistance - disable
+Set-Registry "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" "fAllowToGetHelp" "DWORD" 0
+Set-Registry "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" "fAllowFullControl" "DWORD" 0
+
+# Startup and Recovery - config
+Set-Registry "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" "AutoReboot" "DWORD" 0
+Set-Registry "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" "CrashDumpEnabled" "DWORD" 3
+
 # XPS printing - disable"
 Disable-WinFeature 'Printing-XPSServices-Features'
 
@@ -114,6 +123,11 @@ Uninstall-WinPackage "Windows-TabletPCMath-Package"
 
 # PowerShell ISE - remove
 Uninstall-WinPackage "Windows-PowerShell-ISE-FOD-Package"
+
+# Hibernate - disable
+Show-NowWorkAtSet -ThingToSet "hibernation" -ValueToSet 'off'
+powercfg -h off | Out-Null
+Show-ItsOK
 
 ################################################################################
 
