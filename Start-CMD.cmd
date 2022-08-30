@@ -15,7 +15,7 @@ for /R %%X in ("*.ps1") do (
 )
 
 :ACTION
-PowerShell.exe -ExecutionPolicy RemoteSigned -File Start.ps1
+PowerShell.exe -ExecutionPolicy RemoteSigned -File Start-PS.ps1
 
 :END
 PAUSE
