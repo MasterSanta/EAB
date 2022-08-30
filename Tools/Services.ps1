@@ -1,24 +1,24 @@
 ################################################################################
 
 $ErrorActionPreference = 'Stop'
+.$PSScriptRoot\Information.ps1
 
 ################################################################################
 
 function Disable-Service([string]$serviceName) { 
-	Write-Host " - disable service " -NoNewline
-	Write-Host "'$serviceName' " -ForegroundColor 'Cyan' -NoNewline 
+	Show-NowWorkAtDisable -ThingToDisable $serviceName
     try {
         Get-Service -Name $serviceName | Out-Null
     } catch {
-		Write-Host "[SKIP]" -ForegroundColor 'Yellow'
+		Show-ItsSkip -AdditionalInfo "not found"
         return
     }
 	try {
 		Set-Service -Name "$serviceName" -StartupType 'Disabled'
 		Stop-Service -Name "$serviceName"
-		Write-Host "[OK]" -ForegroundColor 'Green'
+		Show-ItsOK
 	} catch {
-		Write-Host " [FAILED]" -ForegroundColor 'Red'
+		Show-ItsError
 	}
 }
 

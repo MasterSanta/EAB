@@ -14,6 +14,7 @@ if (-not (IsAdministrator)) {
     Write-Host ", skipping... `n"
     return
 }
+.$PSScriptRoot\..\Tools\Information.ps1
 
 ################################################################################
 
@@ -37,17 +38,13 @@ $listDNSv6 = @(
 
 foreach ($adapter in $netAdapters) {
     $adapter = $adapter.Name
-    Write-Host " - configure " -NoNewline
-    Write-Host "$adapter " -ForegroundColor 'Cyan' -NoNewline
-
     try {
-        Write-Host "[IPv4] " -ForegroundColor 'DarkGray' -NoNewline 
+        Show-NowWorkAtConfigure -ThingToConfigure "$adapter" -AdditionalInfo "IPv4 & IPv6"
         Set-DNSClientServerAddress -InterfaceAlias "$adapter" -ServerAddresses $listDNSv4 | Out-Null
-        Write-Host "[IPv6] " -ForegroundColor 'DarkGray' -NoNewline 
         Set-DNSClientServerAddress -InterfaceAlias "$adapter" -ServerAddresses $listDNSv6 | Out-Null
-        Write-Host "[OK]" -ForegroundColor 'Green'
+        Show-ItsOK
     } catch {
-        Write-Host " [FAILED]" -ForegroundColor 'Red'
+        Show-ItsError
     }
 }
 

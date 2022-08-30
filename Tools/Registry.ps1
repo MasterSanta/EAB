@@ -1,40 +1,35 @@
 ################################################################################
 
 $ErrorActionPreference = 'Stop'
+.$PSScriptRoot\Information.ps1
 
 ################################################################################
 
 function Set-Registry([string]$path, [string]$name, [Microsoft.Win32.RegistryValueKind]$type, [System.Object]$value) {
     try {
-        Write-Host " - set " -NoNewline
-        Write-Host "$name " -ForegroundColor 'Cyan' -NoNewline 
-        Write-Host "to " -NoNewline
-        Write-Host "$value " -ForegroundColor 'Yellow' -NoNewline  
-        Write-Host "($type) " -ForegroundColor 'DarkGray' -NoNewline
+        Show-NowWorkAtSet -thingToSet $name -valueToSet $value -additionalInfo $type
         if (-not (Test-Path $path)) {
             New-Item -Path $path -Force | Out-Null
         }
         New-ItemProperty -Path $path -Name $name -Value $value -PropertyType $type -Force | Out-Null
-        Write-Host "[OK]" -ForegroundColor 'Green'
+        Show-ItsOK
     } catch {
-		Write-Host " [ERROR]" -ForegroundColor 'Red'
+		Show-ItsError
 	}
 }
 
 function Remove-Registry([string]$path) {
     $regex = '^(?:.*)\\(?<valueName>.*)$'
     try {
-        $value = [regex]::Match($path, $regex).Groups["valueName"].Value
-        Write-Host " - remove " -NoNewline
-        Write-Host "$value " -ForegroundColor 'Cyan' -NoNewline 
+        Show-NowWorkAtRemove -thingToRemove ([regex]::Match($path, $regex).Groups["valueName"].Value)
         if (!(Test-Path "$path")) {
-            Write-Host "[SKIP]" -ForegroundColor 'Yellow'
+            Show-ItsOK -AdditionalInfo "already removed"
             return
         }
         Remove-Item -Path "$path" -Force | Out-Null
-        Write-Host "[OK]" -ForegroundColor 'Green'
+        Show-ItsOK
     } catch {
-        Write-Host "[ERROR]" -ForegroundColor 'Red'
+        Show-ItsError
 	}
 }
 
