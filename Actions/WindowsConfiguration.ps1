@@ -4,8 +4,8 @@ Write-Host "[ Configure Windows Settings ... ]" -ForegroundColor 'Magenta'
 
 ################################################################################
 
+.$PSScriptRoot\..\Tools\Programs.ps1
 .$PSScriptRoot\..\Tools\Registry.ps1
-.$PSScriptRoot\..\Tools\OptionalFeatures.ps1
 
 ##############################################################################
 

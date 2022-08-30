@@ -5,7 +5,7 @@ Write-Host "[ Configure Security Advisory ... ]" -ForegroundColor 'Magenta'
 ################################################################################
 
 .$PSScriptRoot\..\Tools\Registry.ps1
-.$PSScriptRoot\..\Tools\OptionalFeatures.ps1
+.$PSScriptRoot\..\Tools\Programs.ps1
 
 ################################################################################
 

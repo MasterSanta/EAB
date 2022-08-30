@@ -34,7 +34,7 @@ function Uninstall-WinPackage([string]$appName) {
 			Show-ItsOK -AdditionalInfo "already not installed"
 			return
 		}		
-		$installedPackage | Remove-WindowsPackage -Online -NoRestart | Out-Null
+		$installedPackage | Remove-WindowsPackage -Online -NoRestart -LogLevel 'Errors' | Out-Null
 		Show-ItsOK
 	} catch {
 		Show-ItsError
@@ -51,6 +51,29 @@ function Uninstall-Program([string]$appName){
 			return
 		}
 		$MyApp.Uninstall() | Out-Null
+		Show-ItsOK
+	} catch {
+		Show-ItsError
+	}
+}
+
+function Disable-WinFeature([string]$featureName) {
+	Show-NowWorkAtDisable -ThingToDisable $featureName
+
+    $featuresToDisable = Get-WindowsOptionalFeature -Online | Where-Object FeatureName -eq "$featureName"
+
+    if ($null -eq $featuresToDisable) {
+        Show-ItsSkip -AdditionalInfo "not found"
+        return
+    }
+
+    if ($featuresToDisable.State -eq 'Disabled') {
+        Show-ItsSkip -AdditionalInfo "already disabled"
+        return
+    }
+
+    try {
+        Disable-WindowsOptionalFeature -Online -NoRestart -FeatureName $featureName -LogLevel 'Errors' | Out-Null
 		Show-ItsOK
 	} catch {
 		Show-ItsError
