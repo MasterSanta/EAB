@@ -43,14 +43,14 @@ Set-Registry "HKLM:\Software\Policies\Google\Chrome\ExtensionInstallForcelist" "
 Set-MpPreference -PUAProtection 'Enable'
 
 # Enable Defender exploit system-wide protection
-Set-Processmitigation -System -Enable DEP,EmulateAtlThunks,BottomUp,HighEntropy,SEHOP,SEHOPTelemetry,TerminateOnError
+Set-Processmitigation -System -Enable DEP, EmulateAtlThunks, BottomUp, HighEntropy, SEHOP, SEHOPTelemetry, TerminateOnError
 
 # Disable NTLMv1
-Disable-WindowsOptionalFeature -Online -FeatureName 'smb1protocol' | Out-Null
+Disable-WindowsOptionalFeature -Online -FeatureName "smb1protocol" | Out-Null
 
 # Disable Powershellv2
-Disable-WindowsOptionalFeature -Online -FeatureName 'MicrosoftWindowsPowerShellV2' | Out-Null
-Disable-WindowsOptionalFeature -Online -FeatureName 'MicrosoftWindowsPowerShellV2Root' | Out-Null
+Disable-WindowsOptionalFeature -Online -FeatureName "MicrosoftWindowsPowerShellV2" | Out-Null
+Disable-WindowsOptionalFeature -Online -FeatureName "MicrosoftWindowsPowerShellV2Root" | Out-Null
 
 # Disable WCF
 Disable-WindowsOptionalFeature -Online -FeatureName "WCF-Services45" | Out-Null

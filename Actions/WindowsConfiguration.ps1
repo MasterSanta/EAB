@@ -1,6 +1,6 @@
 ################################################################################
 
-Write-Host "[ Configure Windows ... ]" -ForegroundColor 'Magenta'
+Write-Host "[ Configure Windows Settings ... ]" -ForegroundColor 'Magenta'
 
 ################################################################################
 

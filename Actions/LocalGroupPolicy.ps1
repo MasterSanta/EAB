@@ -193,3 +193,7 @@ Set-Registry "HKCU:\Software\Policies\Microsoft\Windows\Explorer" "MultiTaskingA
 Set-Registry "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowYourAccount" "value" DWORD 0
 
 ################################################################################
+
+Write-Host ""
+
+################################################################################
