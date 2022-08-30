@@ -4,20 +4,9 @@ Write-Host "[ Configure attack surface reduction rules ... ]" -ForegroundColor '
 
 ################################################################################
 
-.$PSScriptRoot\..\Tools\UserPermissions.ps1
-
-################################################################################
-
 # https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-reference?view=o365-worldwide
 
 ################################################################################
-
-if (-not (IsAdministrator)) {
-    Write-Host "Not run as " -NoNewline
-    Write-Host "Administrator" -ForegroundColor 'Yellow' -NoNewline  
-    Write-Host ", skipping... `n"
-    return
-}
 
 ################################################################################
 

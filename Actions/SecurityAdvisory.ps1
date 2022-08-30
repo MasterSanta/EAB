@@ -5,16 +5,6 @@ Write-Host "[ Configure Security Advisory ... ]" -ForegroundColor 'Magenta'
 ################################################################################
 
 .$PSScriptRoot\..\Tools\Registry.ps1
-.$PSScriptRoot\..\Tools\UserPermissions.ps1
-
-################################################################################
-
-if (-not (IsAdministrator)) {
-    Write-Host "Not run as " -NoNewline
-    Write-Host "Administrator" -ForegroundColor 'Yellow' -NoNewline  
-    Write-Host ", skipping... `n"
-    return
-}
 
 ################################################################################
 

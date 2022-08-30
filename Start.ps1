@@ -6,6 +6,18 @@ $ErrorActionPreference = 'Stop'
 Push-Location "$PSScriptRoot"
 Clear-Host
 
+### [ First checks ] ###########################################################
+
+.$PSScriptRoot\Tools\UserPermissions.ps1
+
+if (-not (IsAdministrator)) {
+    Write-Host "The script requires " -NoNewline
+    Write-Host "Administrator " -ForegroundColor 'Yellow' -NoNewline  
+    Write-Host "privileges to work properly. Please restart it with elevated privileges."
+    Write-Host "Exiting now!" -ForegroundColor 'Red'
+    return
+}
+
 ### [ Run tasks ] ##############################################################
 
 Write-Host "[ RUN TASKS ]`n" -ForegroundColor 'Green'
