@@ -88,6 +88,7 @@ Set-Registry "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" "ShowFre
 
 # Dark theme - enable
 Set-Registry "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" "AppsUseLightTheme" DWORD 0
+Set-Registry "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" "SystemUsesLightTheme" DWORD 0
 
 # Transparency effects - disable
 Set-Registry "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" "EnableTransparency" DWORD 0
