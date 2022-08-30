@@ -21,6 +21,26 @@ function Remove-ModernUIApp([string]$appName) {
 	}
 }
 
+function Uninstall-WinPackage([string]$appName) {
+	Show-NowWorkAtRemove -thingToRemove $appName
+
+	try {
+		$installedPackage = Get-WindowsPackage -Online | Where-Object 'PackageName' -Like "*$appName*"
+		if ($null -eq $installedPackage) {
+			Show-ItsSkip -AdditionalInfo "not found"
+			return
+		}
+		if ($installedPackage.PackageState -ne 'Installed') {
+			Show-ItsOK -AdditionalInfo "already not installed"
+			return
+		}		
+		$installedPackage | Remove-WindowsPackage -Online -NoRestart | Out-Null
+		Show-ItsOK
+	} catch {
+		Show-ItsError
+	}
+}
+
 function Uninstall-Program([string]$appName){
 	Show-NowWorkAtRemove -thingToRemove $appName
 
