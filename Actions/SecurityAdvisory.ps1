@@ -5,6 +5,7 @@ Write-Host "[ Configure Security Advisory ... ]" -ForegroundColor 'Magenta'
 ################################################################################
 
 .$PSScriptRoot\..\Tools\Registry.ps1
+.$PSScriptRoot\..\Tools\OptionalFeatures.ps1
 
 ################################################################################
 
@@ -46,18 +47,18 @@ Set-MpPreference -PUAProtection 'Enable'
 Set-Processmitigation -System -Enable DEP, EmulateAtlThunks, BottomUp, HighEntropy, SEHOP, SEHOPTelemetry, TerminateOnError
 
 # Disable NTLMv1
-Disable-WindowsOptionalFeature -Online -FeatureName "smb1protocol" | Out-Null
+Disable-WinFeature "smb1protocol"
 
 # Disable Powershellv2
-Disable-WindowsOptionalFeature -Online -FeatureName "MicrosoftWindowsPowerShellV2" | Out-Null
-Disable-WindowsOptionalFeature -Online -FeatureName "MicrosoftWindowsPowerShellV2Root" | Out-Null
+Disable-WinFeature "MicrosoftWindowsPowerShellV2"
+Disable-WinFeature "MicrosoftWindowsPowerShellV2Root"
 
 # Disable WCF
-Disable-WindowsOptionalFeature -Online -FeatureName "WCF-Services45" | Out-Null
-Disable-WindowsOptionalFeature -Online -FeatureName "WCF-TCP-PortSharing45" | Out-Null
+Disable-WinFeature "WCF-Services45"
+Disable-WinFeature "WCF-TCP-PortSharing45"
 
 # Disable Internet Explorer
-Disable-WindowsOptionalFeature -Online -FeatureName "Internet-Explorer-Optional-amd64" | Out-Null
+Disable-WinFeature "Internet-Explorer-Optional-amd64"
 
 # Enable Windows Defender sandboxing
 Write-Host " - enable Windows Defender sandboxing " -NoNewline

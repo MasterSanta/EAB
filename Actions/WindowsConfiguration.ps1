@@ -5,6 +5,7 @@ Write-Host "[ Configure Windows Settings ... ]" -ForegroundColor 'Magenta'
 ################################################################################
 
 .$PSScriptRoot\..\Tools\Registry.ps1
+.$PSScriptRoot\..\Tools\OptionalFeatures.ps1
 
 ##############################################################################
 
@@ -96,8 +97,8 @@ Set-Registry "HKCU:\Software\Microsoft\Windows\DWM" "ColorPrevalence" DWORD 1
 # Hostspot 2.0 - disable
 Set-Registry "HKLM:\SOFTWARE\Microsoft\WlanSvc\AnqpCache" "OsuRegistrationStatus" "DWORD" 0
 
-Write-Host " - disable XPS printing"
-Disable-WindowsOptionalFeature -Online -FeatureName 'Printing-XPSServices-Features' | Out-Null
+# XPS printing - disable"
+Disable-WinFeature 'Printing-XPSServices-Features'
 
 ################################################################################
 
