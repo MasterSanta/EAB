@@ -96,6 +96,9 @@ Set-Registry "HKCU:\Software\Microsoft\Windows\DWM" "ColorPrevalence" DWORD 1
 # Hostspot 2.0 - disable
 Set-Registry "HKLM:\SOFTWARE\Microsoft\WlanSvc\AnqpCache" "OsuRegistrationStatus" "DWORD" 0
 
+Write-Host " - disable XPS printing"
+Disable-WindowsOptionalFeature -Online -FeatureName 'Printing-XPSServices-Features' | Out-Null
+
 ################################################################################
 
 Write-Host ""
