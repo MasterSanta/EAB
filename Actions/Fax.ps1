@@ -8,7 +8,11 @@ Write-Host " - remove " -NoNewline
 Write-Host "`'Fax`' " -ForegroundColor 'Cyan' -NoNewline
 
 try {
-    $printer = Get-Printer -Name "Fax"
+    $printer = Get-Printer | Where-Object -Property Name -eq "Fax"
+    if ($null -eq $printer) {
+        Show-ItsSkip -AdditionalInfo "already removed"
+        return
+    }
     Remove-Printer -InputObject $printer
     Write-Host "[OK]" -ForegroundColor 'Green'
 } catch {
