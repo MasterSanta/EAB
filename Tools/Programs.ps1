@@ -24,10 +24,18 @@ function Remove-ModernUIApp([string]$appName) {
 function Uninstall-Program([string]$appName){
 	Write-Host " - remove " -NoNewline
 	Write-Host "$appName " -ForegroundColor 'Cyan' -NoNewline 
+
 	try {
-		UninstallProgram-Package -Name "$appName" -Force | Out-Null
-	} catch {}
-	Write-Host "[OK]" -ForegroundColor 'Green'
+		$MyApp = Get-WmiObject -Class 'Win32_Product' | Where-Object { $_.Name -eq "$appName" }
+		if ($null -eq $MyApp.IdentifyingNumber) {
+			Write-Host "[SKIP]" -ForegroundColor 'Yellow'
+			return
+		}
+		$MyApp.Uninstall() | Out-Null
+		Write-Host "[OK]" -ForegroundColor 'Green'
+	} catch {
+		Write-Host " [ERROR]" -ForegroundColor 'Red'
+	}
 }
 
 ##############################################################################
