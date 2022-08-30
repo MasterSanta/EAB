@@ -34,7 +34,7 @@ function Uninstall-WinPackage([string]$appName) {
 			Show-ItsOK -AdditionalInfo "already not installed"
 			return
 		}		
-		$installedPackage | Remove-WindowsPackage -Online -NoRestart -LogLevel 'Errors' | Out-Null
+		$installedPackage | Remove-WindowsPackage -Online -NoRestart -LogLevel 'Errors' *> $null
 		Show-ItsOK
 	} catch {
 		Show-ItsError
@@ -73,7 +73,7 @@ function Disable-WinFeature([string]$featureName) {
     }
 
     try {
-        Disable-WindowsOptionalFeature -Online -NoRestart -FeatureName $featureName -LogLevel 'Errors' | Out-Null
+        Disable-WindowsOptionalFeature -Online -NoRestart -FeatureName $featureName -LogLevel 'Errors' *> $null
 		Show-ItsOK
 	} catch {
 		Show-ItsError
