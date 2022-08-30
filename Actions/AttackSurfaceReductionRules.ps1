@@ -9,7 +9,7 @@ Write-Host "[ Configure attack surface reduction rules ... ]" -ForegroundColor '
 ################################################################################
 
 Write-Host " - Block process creations originating from PSExec and WMI commands"
-Set-MpPreference -AttackSurfaceReductionRules_Ids "d1e49aac-8f56-4280-b9ba-993a6d77406c" -AttackSurfaceReductionRules_Actions 'Enabled'
+Add-MpPreference -AttackSurfaceReductionRules_Ids "d1e49aac-8f56-4280-b9ba-993a6d77406c" -AttackSurfaceReductionRules_Actions 'Enabled'
 
 Write-Host " - Block all Office applications from creating child processes"
 Add-MpPreference -AttackSurfaceReductionRules_Ids "D4F940AB-401B-4EFC-AADC-AD5F3C50688A" -AttackSurfaceReductionRules_Actions 'Enabled'
