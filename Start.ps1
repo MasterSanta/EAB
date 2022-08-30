@@ -1,4 +1,4 @@
-﻿### [ Preferences ] ############################################################
+### [ Preferences ] ############################################################
 
 $PSDefaultParameterValues.Clear()
 $PSDefaultParameterValues['*:Encoding'] = 'utf8'
