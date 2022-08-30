@@ -9,10 +9,13 @@ function Set-BCDEdit([string]$optionToSet, [string]$newValue) {
     Write-Host "`'$optionToSet`' " -ForegroundColor 'Cyan' -NoNewline
     Write-Host "to " -NoNewline
     Write-Host "`'$newValue`' " -ForegroundColor 'Yellow' -NoNewline
-    try {
-        BCDEdit /set "$optionToSet" "$newValue"
-    } catch {
-		Write-Host " [ERROR]" -ForegroundColor 'Red'
+
+    BCDEdit /set "$optionToSet" "$newValue" | Out-Null
+
+    if ($LastExitCode -eq 0) {
+        Write-Host "[OK]" -ForegroundColor 'Green'
+    } else {
+        Write-Host " [ERROR]" -ForegroundColor 'Red'
     }
 }
 
