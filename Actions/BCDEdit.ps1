@@ -12,9 +12,9 @@ Write-Host "[ Configure BCDEdit ... ]" -ForegroundColor 'Magenta'
 
 ################################################################################
 
-Set-BCDEdit "nx" 'AlwaysOn'
-Set-BCDEdit "recoveryenabled" 'No'
-Set-BCDEdit "nointegritychecks" 'No'
+Set-BCDEdit -Option "nx" -Value "AlwaysOn"
+Set-BCDEdit -Option "recoveryenabled" -Value "No"
+Set-BCDEdit -Option "nointegritychecks" -Value "No"
 
 ################################################################################
 

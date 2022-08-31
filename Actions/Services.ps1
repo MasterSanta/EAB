@@ -8,9 +8,9 @@ Write-Host "[ Disable Services ... ]" -ForegroundColor 'Magenta'
 
 ################################################################################
 
-Disable-Service("DiagTrack")
-Disable-Service("dmwappushservice")
-Disable-Service("mrxsmb10")
+Disable-Service "DiagTrack"
+Disable-Service "dmwappushservice"
+Disable-Service "mrxsmb10"
 
 ################################################################################
 

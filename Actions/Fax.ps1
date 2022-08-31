@@ -4,19 +4,24 @@ Write-Host "[ Remove Fax ... ]" -ForegroundColor 'Magenta'
 
 ################################################################################
 
-Write-Host " - remove " -NoNewline
-Write-Host "`'Fax`' " -ForegroundColor 'Cyan' -NoNewline
+.$PSScriptRoot\..\Tools\Information.ps1
+
+################################################################################
+
+Show-NowWorkAtRemove -ThingToRemove "Fax"
 
 try {
-    $printer = Get-Printer | Where-Object -Property Name -eq "Fax"
-    if ($null -eq $printer) {
-        Show-ItsSkip -AdditionalInfo "already removed"
-        return
+    $printer = Get-Printer | Where-Object -Property 'Name' -eq "Fax"
+    if ($printer) {
+        Remove-Printer -InputObject $printer
+        Show-ItsOK
     }
-    Remove-Printer -InputObject $printer
-    Write-Host "[OK]" -ForegroundColor 'Green'
-} catch {
-    Write-Host " [FAILED]" -ForegroundColor 'Red'
+    else {
+        Show-ItsSkip -AdditionalInfo "already removed"
+    }
+}
+catch {
+    Show-ItsError
 }
 
 ################################################################################

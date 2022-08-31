@@ -1,63 +1,107 @@
+################################################################################
+
+Function Show-NowWorkAt {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string] $Action,
+        
+        [Parameter(Mandatory = $true, Position = 1)]
+        [ValidateNotNullOrEmpty()]
+        [string] $ThingToSet,
+        
+        [Parameter(Mandatory = $false, Position = 2)]
+        [AllowNull()]
+        [string] $ValueToSet,
+
+        [Parameter(Mandatory = $false, Position = 3)]
+        [AllowNull()]
+        [string] $AdditionalInfo
+    )
+    Process {
+        Write-Host " - $Action " -NoNewline
+        Write-Host "`'$ThingToSet`' " -ForegroundColor 'Cyan' -NoNewline
+        
+        if ($ValueToSet) {
+            Write-Host "to " -NoNewline
+            Write-Host "`'$ValueToSet`' " -ForegroundColor 'Yellow' -NoNewline
+        }
+    }
+    End {
+        if ($AdditionalInfo) {
+            Write-Host "($AdditionalInfo) " -ForegroundColor 'DarkGray' -NoNewline
+        }
+    }
+}
+
+Function Show-NowWorkAtSet ($ThingToSet, $ValueToSet, $AdditionalInfo) {
+    Show-NowWorkAt -Action "set" -ThingToSet $ThingToSet -ValueToSet $ValueToSet -AdditionalInfo $AdditionalInfo
+}
+
+Function Show-NowWorkAtRemove ($ThingToRemove, $AdditionalInfo) {
+    Show-NowWorkAt -Action "remove" -ThingToSet $ThingToRemove -ValueToSet $null -AdditionalInfo $AdditionalInfo
+}
+
+Function Show-NowWorkAtDisable ($ThingToDisable, $AdditionalInfo) {
+    Show-NowWorkAt -Action "disable" -ThingToSet $ThingToDisable -ValueToSet $null -AdditionalInfo $AdditionalInfo
+}
+
+Function Show-NowWorkAtConfigure ($ThingToConfigure, $ValueToSet, $AdditionalInfo) {
+    Show-NowWorkAt -Action "configure" -ThingToSet $ThingToConfigure -ValueToSet $ValueToSet -AdditionalInfo $AdditionalInfo
+}
 
 ################################################################################
 
-$ErrorActionPreference = 'Stop'
+Function Show-Its {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [ValidateSet('OK', 'SKIP', 'ERROR')]
+        [string[]]
+        $Action,
 
-################################################################################
-
-function Show-NowWorkAt([string]$action, [string]$ThingToSet, $ValueToSet = $null, $AdditionalInfo = $null) {
-
-    Write-Host " - $action " -NoNewline
-    Write-Host "`'$thingToSet`' " -ForegroundColor 'Cyan' -NoNewline
-
-    if ($null -ne $valueToSet) {
-        Write-Host "to " -NoNewline
-        Write-Host "`'$valueToSet`' " -ForegroundColor 'Yellow' -NoNewline
+        [Parameter(Mandatory = $false, Position = 1)]
+        [AllowNull()]
+        [string] $AdditionalInfo
+    )
+    Begin {
+        switch ($Action) {
+            'OK' { 
+                $ActionInfoColour = 'Green'
+                $AdditionalInfoColour = 'DarkGreen'
+            }
+            'SKIP' { 
+                $ActionInfoColour = 'Yellow'
+                $AdditionalInfoColour = 'DarkYellow'
+            }
+            'ERROR' { 
+                $ActionInfoColour = 'Red'
+                $AdditionalInfoColour = 'DarkRed'
+            }
+        }
     }
-
-    if ($null -ne $additionalInfo) {
-        Write-Host "($additionalInfo) " -ForegroundColor 'DarkGray' -NoNewline
+    Process {
+        Write-Host "[$Action] " -ForegroundColor $ActionInfoColour -NoNewline
+        if ($AdditionalInfo) {
+            Write-Host "($AdditionalInfo) " -ForegroundColor $AdditionalInfoColour -NoNewline
+        }
+    }
+    End {
+        Write-Host ""
     }
 }
 
-function Show-NowWorkAtSet([string]$ThingToSet, $ValueToSet = $null, $AdditionalInfo = $null) {
-    Show-NowWorkAt -action "set" -ThingToSet $ThingToSet -ValueToSet $ValueToSet -AdditionalInfo $AdditionalInfo
+Function Show-ItsOK ($AdditionalInfo) {
+    Show-Its -Action 'OK' -AdditionalInfo $AdditionalInfo
 }
 
-function Show-NowWorkAtRemove([string]$ThingToRemove, $AdditionalInfo = $null) {
-    Show-NowWorkAt -action "remove" -ThingToSet $ThingToRemove -ValueToSet $null -AdditionalInfo $AdditionalInfo
+Function Show-ItsSkip ($AdditionalInfo) {
+    Show-Its -Action 'SKIP' -AdditionalInfo $AdditionalInfo
 }
 
-function Show-NowWorkAtDisable([string]$ThingToDisable, $AdditionalInfo = $null) {
-    Show-NowWorkAt -action "disable" -ThingToSet $ThingToDisable -ValueToSet $null -AdditionalInfo $AdditionalInfo
-}
-
-function Show-NowWorkAtConfigure([string]$ThingToConfigure, $ValueToSet = $null, $AdditionalInfo = $null) {
-    Show-NowWorkAt -action "configure" -ThingToSet $ThingToConfigure -ValueToSet $ValueToSet -AdditionalInfo $AdditionalInfo
-}
-
-function Show-ItsOK($AdditionalInfo = $null) {
-    Write-Host "[OK] " -ForegroundColor 'Green' -NoNewline
-    if ($null -ne $additionalInfo) {
-        Write-Host "($additionalInfo) " -ForegroundColor 'DarkGreen' -NoNewline
-    }
-    Write-Host ""
-}
-
-function Show-ItsSkip($AdditionalInfo = $null) {
-    Write-Host "[SKIP] " -ForegroundColor 'Yellow' -NoNewline
-    if ($null -ne $additionalInfo) {
-        Write-Host "($additionalInfo) " -ForegroundColor 'DarkYellow' -NoNewline
-    }
-    Write-Host ""
-}
-
-function Show-ItsError($AdditionalInfo = $null) {
-    Write-Host "[ERROR] " -ForegroundColor 'Red' -NoNewline
-    if ($null -ne $additionalInfo) {
-        Write-Host "($additionalInfo) " -ForegroundColor 'DarkRed' -NoNewline
-    }
-    Write-Host ""
+Function Show-ItsError ($AdditionalInfo) {
+    Show-Its -Action 'ERROR' -AdditionalInfo $AdditionalInfo
 }
 
 ################################################################################

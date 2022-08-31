@@ -1,36 +1,72 @@
 ################################################################################
 
-$ErrorActionPreference = 'Stop'
 .$PSScriptRoot\Information.ps1
 
 ################################################################################
 
-function Set-Registry([string]$path, [string]$name, [Microsoft.Win32.RegistryValueKind]$type, [System.Object]$value) {
-    try {
-        Show-NowWorkAtSet -thingToSet $name -valueToSet $value -additionalInfo $type
-        if (-not (Test-Path $path)) {
-            New-Item -Path $path -Force | Out-Null
+Function Set-Registry {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string] $Path,
+        
+        [Parameter(Mandatory = $true, Position = 1)]
+        [ValidateNotNullOrEmpty()]
+        [string] $Name,
+        
+        [Parameter(Mandatory = $true, Position = 2)]
+        [ValidateNotNullOrEmpty()]
+        [Microsoft.Win32.RegistryValueKind] $Type,
+        
+        [Parameter(Mandatory = $true, Position = 3)]
+        [AllowNull()]
+        [System.Object] $Value        
+    )
+    Begin {
+        Show-NowWorkAtSet -ThingToSet $Name -ValueToSet $Value -AdditionalInfo $Type
+    }
+    Process {
+        if (-not (Test-Path $Path)) {
+            New-Item -Path $Path -Force | Out-Null
         }
-        New-ItemProperty -Path $path -Name $name -Value $value -PropertyType $type -Force | Out-Null
-        Show-ItsOK
-    } catch {
-		Show-ItsError
-	}
+
+        try {
+            New-ItemProperty -Path $Path -Name $Name -Value $Value -PropertyType $Type -Force | Out-Null
+            Show-ItsOK
+        }
+        catch {
+            Show-ItsError
+        }
+    }
 }
 
-function Remove-Registry([string]$path) {
-    $regex = '^(?:.*)\\(?<valueName>.*)$'
-    try {
-        Show-NowWorkAtRemove -thingToRemove ([regex]::Match($path, $regex).Groups["valueName"].Value)
-        if (!(Test-Path "$path")) {
+Function Remove-Registry {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string] $Path
+    )
+    Begin {
+        $Regex = '^(?:.*)\\(?<valueName>.*)$'
+        $ValueName = [regex]::Match($Path, $Regex).Groups["valueName"].Value
+        Show-NowWorkAtRemove -ThingToRemove $ValueName
+    }
+    Process {
+        if (!(Test-Path "$Path")) {
             Show-ItsOK -AdditionalInfo "already removed"
             return
         }
-        Remove-Item -Path "$path" -Force | Out-Null
-        Show-ItsOK
-    } catch {
-        Show-ItsError
-	}
+
+        try {
+            Remove-Item -Path "$Path" -Force | Out-Null
+            Show-ItsOK
+        }
+        catch {
+            Show-ItsError
+        }
+    }
 }
 
 ################################################################################

@@ -4,8 +4,9 @@ Write-Host "[ Configure Security Advisory ... ]" -ForegroundColor 'Magenta'
 
 ################################################################################
 
-.$PSScriptRoot\..\Tools\Registry.ps1
+.$PSScriptRoot\..\Tools\Information.ps1
 .$PSScriptRoot\..\Tools\Programs.ps1
+.$PSScriptRoot\..\Tools\Registry.ps1
 
 ################################################################################
 
@@ -44,7 +45,7 @@ Set-Registry "HKLM:\Software\Policies\Google\Chrome\ExtensionInstallForcelist" "
 Set-MpPreference -PUAProtection 'Enable'
 
 # Enable Defender exploit system-wide protection
-Set-Processmitigation -System -Enable DEP, EmulateAtlThunks, BottomUp, HighEntropy, SEHOP, SEHOPTelemetry, TerminateOnError
+Set-Processmitigation -System -Enable DEP,EmulateAtlThunks,BottomUp,HighEntropy,SEHOP,SEHOPTelemetry,TerminateOnError
 
 # Disable NTLMv1
 Disable-WinFeature "smb1protocol"
@@ -61,14 +62,14 @@ Disable-WinFeature "WCF-TCP-PortSharing45"
 Disable-WinFeature "Internet-Explorer-Optional-amd64"
 
 # Enable Windows Defender sandboxing
-Write-Host " - enable Windows Defender sandboxing " -NoNewline
+Show-NowWorkAtConfigure -ThingToConfigure "Windows Defender sandboxing" -ValueToSet "enable"
 setx /M MP_FORCE_USE_SANDBOX 1 | Out-Null
-Write-Host "[OK]" -ForegroundColor 'Green'
+Show-ItsOK
 
 # Update signatures
-Write-Host " - update Windows Defender signatures " -NoNewline
+Show-NowWorkAtConfigure -ThingToConfigure "Windows Defender signature" -ValueToSet "be updated"
 ."$Env:Programfiles\Windows Defender\MpCmdRun.exe" -SignatureUpdate | Out-Null
-Write-Host "[OK]" -ForegroundColor 'Green'
+Show-ItsOK
 
 ################################################################################
 

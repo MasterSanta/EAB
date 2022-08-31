@@ -1,25 +1,35 @@
 ################################################################################
 
-$ErrorActionPreference = 'Stop'
 .$PSScriptRoot\Information.ps1
 
 ################################################################################
 
-function Disable-Service([string]$serviceName) { 
-	Show-NowWorkAtDisable -ThingToDisable $serviceName
-    try {
-        Get-Service -Name $serviceName | Out-Null
-    } catch {
-		Show-ItsSkip -AdditionalInfo "not found"
-        return
+Function Disable-Service {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string] $ServiceName
+    )
+    Begin {
+        Show-NowWorkAtDisable -ThingToDisable $ServiceName
+        $ServiceToDisable = Get-Service | Where-Object -Property 'Name' -eq "$ServiceName"
     }
-	try {
-		Set-Service -Name "$serviceName" -StartupType 'Disabled'
-		Stop-Service -Name "$serviceName"
-		Show-ItsOK
-	} catch {
-		Show-ItsError
-	}
+    Process {
+        if ($ServiceToDisable) {
+            try {
+                $ServiceToDisable | Set-Service -StartupType 'Disabled'
+                $ServiceToDisable | Stop-Service
+                Show-ItsOK
+            }
+            catch {
+                Show-ItsError
+            }
+        } 
+        else {
+            Show-ItsSkip -AdditionalInfo "not found"
+        }
+    }
 }
 
 ################################################################################

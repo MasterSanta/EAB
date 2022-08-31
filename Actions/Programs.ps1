@@ -36,7 +36,7 @@ Remove-ModernUIApp "Microsoft.3DBuilder"
 Remove-ModernUIApp "Microsoft.BingFinance"
 Remove-ModernUIApp "Microsoft.BingNews"
 Remove-ModernUIApp "Microsoft.BingSports"
-Remove-ModernUIApp "Microsoft.BingWeather"
+#Remove-ModernUIApp "Microsoft.BingWeather"
 Remove-ModernUIApp "Microsoft.WindowsPhone"
 
 ################################################################################
