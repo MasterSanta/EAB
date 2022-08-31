@@ -46,7 +46,10 @@ function Uninstall-Program([string]$appName){
 
 	try {
 		$MyApp = Get-WmiObject -Class 'Win32_Product' | Where-Object { $_.Name -eq "$appName" }
-		if ($null -eq $MyApp?.IdentifyingNumber) {
+		if ($null -eq $MyApp.IdentifyingNumber) {
+			$MyApp = Get-WmiObject -Class 'Win32_Product' | Where-Object { $_.IdentifyingNumber -eq "$appName" }
+		}
+		if ($null -eq $MyApp.IdentifyingNumber) {
 			Show-ItsSkip -AdditionalInfo "not found"
 			return
 		}

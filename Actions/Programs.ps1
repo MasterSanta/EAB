@@ -41,8 +41,8 @@ Remove-ModernUIApp "Microsoft.WindowsPhone"
 
 ################################################################################
 
-Uninstall-Program "Windows PC Health Check"
-Uninstall-Program "Microsoft Update Health Tools"
+Uninstall-Program "{41E85393-7ED3-4C54-AC25-51F8CDF39CDF}" # Windows PC Health Check
+Uninstall-Program "{7B1FCD52-8F6B-4F12-A143-361EA39F5E7C}" # Microsoft Update Health Tools
 
 ################################################################################
 
