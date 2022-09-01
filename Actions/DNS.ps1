@@ -23,7 +23,7 @@ $ListDNSv6 = @(
     "2001:4860:4860::8844"   # Google DNS #2
 )
 
-$NetAdapters2 = Get-NetAdapter -Physical | Select-Object -ExpandProperty 'Name' | Get-Unique
+$NetAdapters = Get-NetAdapter -Physical | Select-Object -ExpandProperty 'Name' | Get-Unique
 
 if ($NetAdapters) {
     foreach ($Adapter in $NetAdapters) {
