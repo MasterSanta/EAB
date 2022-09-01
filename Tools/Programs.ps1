@@ -16,19 +16,19 @@ Function Remove-ModernUIApp {
         $AppPackages = Get-AppxPackage -Name "$AppName" -AllUsers
     }
     Process {
-        if (-not $AppPackages) {
+        if ($AppPackages) {
+            try {
+                $AppPackages | Remove-AppxPackage *> $null
+                Get-AppxProvisionedPackage -Online | Where-Object 'DisplayName' -Like "$AppName" | 
+                Remove-AppxProvisionedPackage -Online -LogLevel 'Errors' *> $null
+                Show-ItsOK
+            }
+            catch {
+                Show-ItsError
+            }
+        }
+        else {
             Show-ItsSkip -AdditionalInfo "not found"
-            return
-        }
-
-        try {
-            $AppPackages | Remove-AppxPackage *> $null
-            Get-AppxProvisionedPackage -Online | Where-Object 'DisplayName' -Like "$AppName" | 
-            Remove-AppxProvisionedPackage -Online -LogLevel 'Errors' *> $null
-            Show-ItsOK
-        }
-        catch {
-            Show-ItsError
         }
     }
 }
@@ -45,21 +45,22 @@ Function Uninstall-WinPackage {
         $WindowsPackages = Get-WindowsPackage -PackageName "*$AppName*" -Online
     }
     Process {
-        if (-not $WindowsPackages) {
+        if ($WindowsPackages) {
+            if ($WindowsPackages.PackageState -eq 'Installed') {
+                try {
+                    $WindowsPackages | Remove-WindowsPackage -Online -NoRestart -LogLevel 'Errors' *> $null
+                    Show-ItsOK
+                }
+                catch {
+                    Show-ItsError
+                }
+            }
+            else {
+                Show-ItsOK -AdditionalInfo "already not installed"
+            }
+        }
+        else {
             Show-ItsSkip -AdditionalInfo "not found"
-            return
-        }
-        if ($WindowsPackages.PackageState -ne 'Installed') {
-            Show-ItsOK -AdditionalInfo "already not installed"
-            return
-        }
-
-        try {
-            $WindowsPackages | Remove-WindowsPackage -Online -NoRestart -LogLevel 'Errors' *> $null
-            Show-ItsOK
-        }
-        catch {
-            Show-ItsError
         }
     }
 }
@@ -78,17 +79,17 @@ Function Uninstall-Program {
         }
     }
     Process {
-        if (-not $Win32Product.IdentifyingNumber) {
+        if ($Win32Product) {
+            try {
+                $Win32Product.Uninstall() | Out-Null
+                Show-ItsOK -AdditionalInfo $Win32Product.Name
+            }
+            catch {
+                Show-ItsError
+            }
+        }
+        else {
             Show-ItsSkip -AdditionalInfo "not found"
-            return
-        }
-
-        try {
-            $Win32Product.Uninstall() | Out-Null
-            Show-ItsOK -AdditionalInfo $Win32Product.Name
-        }
-        catch {
-            Show-ItsError
         }
     }
 }
@@ -105,21 +106,22 @@ Function Disable-WinFeature {
         $WindowsFeatures = Get-WindowsOptionalFeature -FeatureName "$FeatureName" -Online
     }
     Process {
-        if (-not $WindowsFeatures) {
+        if ($WindowsFeatures) {
+            if ($WindowsFeatures.State -ne 'Disabled') {
+                try {
+                    Disable-WindowsOptionalFeature -Online -NoRestart -FeatureName $FeatureName -LogLevel 'Errors' *> $null
+                    Show-ItsOK
+                }
+                catch {
+                    Show-ItsError
+                }
+            }
+            else {
+                Show-ItsSkip -AdditionalInfo "already disabled"
+            }
+        }
+        else {
             Show-ItsSkip -AdditionalInfo "not found"
-            return
-        }
-        if ($WindowsFeatures.State -eq 'Disabled') {
-            Show-ItsSkip -AdditionalInfo "already disabled"
-            return
-        }
-
-        try {
-            Disable-WindowsOptionalFeature -Online -NoRestart -FeatureName $FeatureName -LogLevel 'Errors' *> $null
-            Show-ItsOK
-        }
-        catch {
-            Show-ItsError
         }
     }
 }

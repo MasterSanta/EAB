@@ -54,17 +54,17 @@ Function Remove-Registry {
         Show-NowWorkAtRemove -ThingToRemove $ValueName
     }
     Process {
-        if (!(Test-Path "$Path")) {
+        if (Test-Path "$Path") {
+            try {
+                Remove-Item -Path "$Path" -Force | Out-Null
+                Show-ItsOK
+            }
+            catch {
+                Show-ItsError
+            }
+        }
+        else {
             Show-ItsOK -AdditionalInfo "already removed"
-            return
-        }
-
-        try {
-            Remove-Item -Path "$Path" -Force | Out-Null
-            Show-ItsOK
-        }
-        catch {
-            Show-ItsError
         }
     }
 }
