@@ -20,7 +20,7 @@ Function Remove-ModernUIApp {
             try {
                 $AppPackages | Remove-AppxPackage *> $null
                 Get-AppxProvisionedPackage -Online | Where-Object 'DisplayName' -Like "$AppName" | 
-                Remove-AppxProvisionedPackage -Online -LogLevel 'Errors' *> $null
+                    Remove-AppxProvisionedPackage -Online -LogLevel 'Errors' *> $null
                 Show-ItsOK
             }
             catch {

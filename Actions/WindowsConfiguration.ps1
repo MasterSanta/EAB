@@ -117,13 +117,13 @@ Uninstall-WinPackage "InternetExplorer"
 Uninstall-WinPackage "Windows-Hello-Face-Package"
 
 # Steps Recorder - remove
-Uninstall-WinPackage "Windows-StepsRecorder-Package"
+#Uninstall-WinPackage "Windows-StepsRecorder-Package" #ToDo: change to DISM action
 
 # Tablet Math - remove
 Uninstall-WinPackage "Windows-TabletPCMath-Package"
 
 # PowerShell ISE - remove
-Uninstall-WinPackage "Windows-PowerShell-ISE-FOD-Package"
+#Uninstall-WinPackage "Windows-PowerShell-ISE-FOD-Package" #ToDo: change to DISM action
 
 # Hibernate - disable
 Show-NowWorkAtSet -ThingToSet "hibernation" -ValueToSet 'off'
