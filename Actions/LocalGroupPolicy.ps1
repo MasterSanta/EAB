@@ -115,7 +115,7 @@ Set-Registry "HKLM:\Software\Policies\Microsoft\Windows\DataCollection" "LimitEn
 Set-Registry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds" "AllowBuildPreview" DWORD 0
 
 # Computer Configuration > Administrative Templates > Windows Components > Delivery Optimization > Download Mode
-Set-Registry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" "DODownloadMode" DWORD 100
+Set-Registry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization" "DODownloadMode" DWORD 0
 
 # Computer Configuration > Administrative Templates > Windows Components > Internet Explorer > Allow Microsoft services to provide enhanced suggestions as the user types in the Address bar
 Set-Registry "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer" "AllowServicePoweredQSA" DWORD 0
