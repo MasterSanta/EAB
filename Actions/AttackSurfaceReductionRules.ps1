@@ -35,9 +35,6 @@ Add-MpPreference -AttackSurfaceReductionRules_Ids "BE9BA2D9-53EA-4CDC-84E5-9B1EE
 Write-Host " - Block JavaScript or VBScript from launching downloaded executable content"
 Add-MpPreference -AttackSurfaceReductionRules_Ids "D3E037E1-3EB8-44C8-A917-57927947596D" -AttackSurfaceReductionRules_Actions 'Enabled'
 
-Write-Host " - Block executable files from running unless they meet a prevalence, age, or trusted list criteria"
-Add-MpPreference -AttackSurfaceReductionRules_Ids "01443614-cd74-433a-b99e-2ecdc07bfc25" -AttackSurfaceReductionRules_Actions 'Enabled'
-
 Write-Host " - Use advanced protection against ransomware"
 Add-MpPreference -AttackSurfaceReductionRules_Ids "C1DB55AB-C21A-4637-BB3F-A12568109D35" -AttackSurfaceReductionRules_Actions 'Enabled'
 
