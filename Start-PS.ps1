@@ -20,7 +20,6 @@ if (Get-YouAreAdministrator) {
     .$PSScriptRoot\Actions\Edge.ps1
     .$PSScriptRoot\Actions\Services.ps1
     .$PSScriptRoot\Actions\BCDEdit.ps1
-    .$PSScriptRoot\Actions\DNS.ps1
     .$PSScriptRoot\Actions\MyComputer.ps1
     .$PSScriptRoot\Actions\WindowsConfiguration.ps1
     .$PSScriptRoot\Actions\Fax.ps1
