@@ -53,8 +53,14 @@ Set-Registry "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryMan
 Set-Registry "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" "SubscribedContent-353696Enabled" DWORD 0
 Set-Registry "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" "SubscribedContent-353698Enabled" DWORD 0
 
+# Show account-related notifications - disable
+Set-Registry "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "Start_AccountNotifications" DWORD 0
+
 # Let Windows track app launches to improve Start and search results - disable (Group Policy: AutoIt Consulting)
 Set-Registry "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "Start_TrackProgs" DWORD 0
+
+# Show recently opened items in Start, Jump List, and File Explorer - disable
+Set-Registry "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "Start_TrackDocs" DWORD 0
 
 # Disable AutoPlay 
 Set-Registry "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" "DisableAutoplay" DWORD 1
