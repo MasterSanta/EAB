@@ -44,14 +44,8 @@ Set-Registry $EdgePolicies "LocalProvidersEnabled" DWORD 0
 # The Math Solver tool will be disabled and users will not be able to use it
 Set-Registry $EdgePolicies "MathSolverEnabled" DWORD 0
 
-# No tabs will be frozen (obsolete)
-Set-Registry $EdgePolicies "TabFreezingEnabled" DWORD 0
-
 # Disable all built-in translate features
 Set-Registry $EdgePolicies "TranslateEnabled" DWORD 0
-
-# Travel assistance will be disabled and users will not be able to see any travel related recommendations
-Set-Registry $EdgePolicies "TravelAssistanceEnabled" DWORD 0
 
 # Microsoft Edge uses native APIs to try to resolve network connectivity and navigation issues
 Set-Registry $EdgePolicies "ResolveNavigationErrorsUseWebService" DWORD 0
@@ -134,14 +128,8 @@ Set-Registry $EdgePolicies "ConfigureShare" DWORD 1
 # Calls to screen-share APIs will fail. Web-based online meeting, video or screen sharing will not work
 Set-Registry $EdgePolicies "ScreenCaptureAllowed" DWORD 0
 
-# Sites can only call getDisplayMedia() from contexts which are allowlisted by the display-capture permissions-policy
-Set-Registry $EdgePolicies "DisplayCapturePermissionsPolicyEnabled" DWORD 1
-
 # Users can't access the web capture feature in Microsoft Edge
 Set-Registry $EdgePolicies "WebCaptureEnabled" DWORD 0
-
-# You can't use the Discover feature in Microsoft Edge
-Set-Registry $EdgePolicies "EdgeDiscoverEnabled" DWORD 0
 
 # When the device is unplugged, efficiency mode takes moderate steps to save battery. When the device is unplugged and the battery is low, efficiency mode takes additional steps to save battery
 Set-Registry $EdgePolicies "EfficiencyMode" DWORD 4
@@ -163,6 +151,9 @@ Set-Registry $EdgePolicies "EdgeEnhanceImagesEnabled" DWORD 0
 
 # Microsoft Edge will not communicate with Follow service to provide the follow feature
 Set-Registry $EdgePolicies "EdgeFollowEnabled" DWORD 0
+
+# Allow feature recommendations and browser assistance notifications from Microsoft Edge
+Set-Registry $EdgePolicies "ShowRecommendationsEnabled" DWORD 0
 
 # Spotlight experiences and recommendations are turned off
 Set-Registry $EdgePolicies "SpotlightExperiencesAndRecommendationsEnabled" DWORD 0
@@ -248,9 +239,6 @@ Set-Registry $EdgePolicies "HideFirstRunExperience" DWORD 1
 # Pin to taskbar wizard is disabled in the menu and cannot be called via a protocol launch
 Set-Registry $EdgePolicies "PinningWizardAllowed" DWORD 0
 
-# Users can't ignore Microsoft Defender SmartScreen warnings and they are blocked from continuing to the site
-Set-Registry $EdgePolicies "PreventSmartScreenPromptOverride" DWORD 1
-
 # Microsoft Edge can't show full-tab content to users
 Set-Registry $EdgePolicies "PromotionalTabsEnabled" DWORD 0
 
@@ -262,15 +250,6 @@ Set-Registry $EdgePolicies "RelatedMatchesCloudServiceEnabled" DWORD 0
 
 # Always show the Home button
 Set-Registry $EdgePolicies "ShowHomeButton" DWORD 1
-
-# Microsoft Defender SmartScreen is turned on
-Set-Registry $EdgePolicies "SmartScreenEnabled" DWORD 1
-
-# Microsoft Defender SmartScreen checks the download's reputation regardless of source
-Set-Registry $EdgePolicies "SmartScreenForTrustedDownloadsEnabled" DWORD 1
-
-# Potentially unwanted app blocking with Microsoft Defender SmartScreen is turned on
-Set-Registry $EdgePolicies "SmartScreenPuaEnabled" DWORD 1
 
 # Edge TyposquattingChecker is turned on
 Set-Registry $EdgePolicies "TyposquattingCheckerEnabled" DWORD 1
