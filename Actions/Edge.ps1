@@ -167,9 +167,6 @@ Set-Registry $EdgePolicies "AlternateErrorPagesEnabled" DWORD 0
 # Users can't opt out of the default behavior where each site runs in its own process
 Set-Registry $EdgePolicies "SitePerProcess" DWORD 1
 
-# Microsoft Edge will show an error for TLS 1.0 and TLS 1.1 and the user will not be able to bypass the error.
-Set-Registry $EdgePolicies "SSLVersionMin" String "tls1.2^@"
-
 # Users are blocked from clicking through any warning page
 Set-Registry $EdgePolicies "SSLErrorOverrideAllowed" DWORD 0
 
