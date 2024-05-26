@@ -186,8 +186,8 @@ Set-Registry "HKCU:\Software\Policies\Microsoft\Windows\EdgeUI" "DisableMFUTrack
 # User Configuration > Administrative Templates > Windows Components > Multitasking > Configure the inclusion of Edge tabs into Alt-Tab
 Set-Registry "HKCU:\Software\Policies\Microsoft\Windows\Explorer" "MultiTaskingAltTabFilter" DWORD 4
 
-    # Block from Switching to Microsoft Account - disable "Sign in with a Microsoft account instead"
-    Set-Registry "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowYourAccount" "value" DWORD 0
+# Block from Switching to Microsoft Account - disable "Sign in with a Microsoft account instead"
+Set-Registry "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowYourAccount" "value" DWORD 0
 
 ################################################################################
 
