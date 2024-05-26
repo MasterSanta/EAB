@@ -57,9 +57,6 @@ Set-Registry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "PublishUserActi
 # Computer Configuration > Administrative Templates > System > OS Policies > Allow upload of User Activities
 Set-Registry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "UploadUserActivities" DWORD 0
 
-# Computer Configuration > Administrative Templates > System > User Profiles > Only allow local user profiles
-Set-Registry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" "LocalProfile" DWORD 1
-
 # Computer Configuration > Administrative Templates > System > Troubleshooting and Diagnostics > Windows Shutdown Performance Diagnostics > Configure Scenario Execution Level
 Set-Registry "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WDI\{9c5a40da-b965-4fc3-8781-88dd50a6299d}" "ScenarioExecutionEnabled" DWORD 0
 
@@ -189,8 +186,8 @@ Set-Registry "HKCU:\Software\Policies\Microsoft\Windows\EdgeUI" "DisableMFUTrack
 # User Configuration > Administrative Templates > Windows Components > Multitasking > Configure the inclusion of Edge tabs into Alt-Tab
 Set-Registry "HKCU:\Software\Policies\Microsoft\Windows\Explorer" "MultiTaskingAltTabFilter" DWORD 4
 
-# Block from Switching to Microsoft Account - disable "Sign in with a Microsoft account instead"
-Set-Registry "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowYourAccount" "value" DWORD 0
+    # Block from Switching to Microsoft Account - disable "Sign in with a Microsoft account instead"
+    Set-Registry "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowYourAccount" "value" DWORD 0
 
 ################################################################################
 
